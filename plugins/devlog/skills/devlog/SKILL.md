@@ -28,9 +28,19 @@ Utilise un titre + sous-titre en gras, pas une liste à puce compacte :
 expliquant le pourquoi, compréhensible sans relire le code
 **Cause** (pour un bug uniquement) : la cause racine identifiée
 **Solution** / **Détail** : ce qui a été fait concrètement
+**Décision technique** (si un choix d'implémentation méritait explication) :
+l'option retenue, l'alternative envisagée et pourquoi elle a été écartée
+**Blocage** (si un obstacle a été rencontré) : la difficulté, son impact, et
+comment elle a été résolue (ou son état si elle ne l'est pas encore)
+**Reste à faire** (si des points restent ouverts après ce changement) : liste
+à puce des points en attente
 ```
 
 Types : 🆕 FEATURE, 🐛 BUG, ♻️ REFACTOR, 🔧 CHORE, 📚 DOCS
+
+N'ajoute **Décision technique**, **Blocage** et **Reste à faire** que quand ils
+apportent une information réelle pour ce changement précis — ne les inclus pas
+vides ou par automatisme, dans le même esprit que le seuil anti-bruit ci-dessus.
 
 Le titre doit être compréhensible seul, en un coup d'œil (pas "fix bug", mais
 "Crash lors de l'upload de fichiers volumineux").
