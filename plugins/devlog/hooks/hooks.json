@@ -1,12 +1,14 @@
 {
-  "Stop": [
-    {
-      "hooks": [
-        {
-          "type": "command",
-          "command": "${CLAUDE_PLUGIN_ROOT}/hooks/check-journal.sh"
-        }
-      ]
-    }
-  ]
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/check-journal.sh"
+          }
+        ]
+      }
+    ]
+  }
 }
