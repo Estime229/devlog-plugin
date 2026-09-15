@@ -1,0 +1,8 @@
+{
+  "name": "devlog",
+  "description": "Journalisation automatique des features/bugs/refactors dans un journal Markdown, avec seuil anti-bruit et index auto-régénéré",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ibra / 41Devs"
+  }
+}

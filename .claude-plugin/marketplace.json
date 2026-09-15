@@ -1,0 +1,15 @@
+{
+  "name": "devtools-41devs",
+  "owner": {
+    "name": "41Devs",
+    "email": "contact@41devs.com"
+  },
+  "description": "Outils internes 41Devs pour Claude Code",
+  "plugins": [
+    {
+      "name": "devlog",
+      "source": "./plugins/devlog",
+      "description": "Journalisation automatique des features/bugs dans .claude/journal/ ou .claude/session-log.md"
+    }
+  ]
+}
