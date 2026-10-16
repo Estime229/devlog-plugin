@@ -2,8 +2,11 @@
 description: Analyse le git diff en cours et ajoute une entrée au journal actif (session-log.md ou CHANGELOG.md)
 ---
 
-Détecte le fichier journal actif du projet (`.claude/session-log.md` si présent,
-sinon `.claude/journal/CHANGELOG.md`, à créer avec son en-tête si besoin).
+Détecte le fichier journal actif du projet, dans cet ordre :
+`.claude/session-log.md` s'il existe ; sinon `.claude/journal/CHANGELOG.md`
+s'il existe et que `.devkit/journal/CHANGELOG.md` n'existe pas (ancien
+emplacement) ; sinon `.devkit/journal/CHANGELOG.md`, à créer avec son en-tête
+si besoin.
 
 Analyse `git diff` (fichiers modifiés, ajoutés, supprimés) et propose un résumé
 au format suivant, avant de l'ajouter :

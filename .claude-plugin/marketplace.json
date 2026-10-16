@@ -7,9 +7,12 @@
   "description": "Outils internes 41Devs pour Claude Code",
   "plugins": [
     {
-      "name": "devlog",
-      "source": "./plugins/devlog",
-      "description": "Journalisation automatique des features/bugs dans .claude/journal/ ou .claude/session-log.md"
+      "name": "devkit",
+      "source": "./plugins/devkit",
+      "description": "Agents par modèle, étude du projet et journal des features/bugs dans .claude/"
     }
-  ]
+  ],
+  "renames": {
+    "devlog": "devkit"
+  }
 }

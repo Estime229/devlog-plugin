@@ -2,8 +2,10 @@
 description: Génère/actualise une table des matières compacte en haut du journal (CHANGELOG.md ou session-log.md)
 ---
 
-Détecte le fichier journal actif du projet (`.claude/session-log.md` si présent,
-sinon `.claude/journal/CHANGELOG.md`).
+Détecte le fichier journal actif du projet, dans cet ordre :
+`.claude/session-log.md` s'il existe ; sinon `.claude/journal/CHANGELOG.md`
+s'il existe et que `.devkit/journal/CHANGELOG.md` n'existe pas (ancien
+emplacement) ; sinon `.devkit/journal/CHANGELOG.md`.
 
 Parcours toutes les entrées du fichier (format `### [ICÔNE] [TYPE] — Titre`) et
 génère une table des matières compacte au format :
@@ -24,6 +26,6 @@ GitHub/GitLab).
 
 Trie l'index du plus récent au plus ancien.
 
-Après régénération, écris dans `.claude/.journal-index-count` le résultat de
+Après régénération, écris dans `.devkit/.journal-index-count` le résultat de
 `grep -c '^### ' <fichier journal>`. Le hook Stop compte les entrées de la même
 façon : un autre chiffre lui ferait redemander l'index à chaque réponse.

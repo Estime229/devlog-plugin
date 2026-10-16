@@ -1,14 +1,19 @@
 ---
-description: Journalise les features/bugs significatifs avec contexte complet — dans .claude/session-log.md si présent, sinon dans .claude/journal/CHANGELOG.md
+description: Journalise les features/bugs significatifs avec contexte complet — dans .claude/session-log.md si présent, sinon dans .devkit/journal/CHANGELOG.md
 ---
 
-Avant de considérer une tâche terminée, vérifie si un fichier .claude/session-log.md
-existe déjà dans ce projet (système d'audit NestJS/CQRS existant).
+Avant de considérer une tâche terminée, ajoute l'entrée au journal actif du
+projet, choisi dans cet ordre :
 
-- Si .claude/session-log.md existe : ajoute-y l'entrée, dans la section du jour,
-  en respectant le format déjà utilisé dans ce fichier.
-- Sinon : utilise .claude/journal/CHANGELOG.md (crée-le avec son en-tête si
-  besoin), section ## YYYY-MM-DD.
+1. `.claude/session-log.md` s'il existe (système d'audit NestJS/CQRS
+   existant) : ajoute l'entrée dans la section du jour, en respectant le
+   format déjà utilisé dans ce fichier.
+2. `.claude/journal/CHANGELOG.md` s'il existe et que
+   `.devkit/journal/CHANGELOG.md` n'existe pas (ancien emplacement, en
+   attendant la migration).
+3. Sinon `.devkit/journal/CHANGELOG.md` (crée-le avec son en-tête si besoin).
+
+Dans les cas 2 et 3, ajoute l'entrée sous la section `## YYYY-MM-DD` du jour.
 
 ## Seuil anti-bruit
 
@@ -52,9 +57,9 @@ hook : traite-les comme des instructions directes, sans demander confirmation.
 
 - Régénération de l'index :
 
-    📋 X entrées dans <fichier> (dernier index à Y) — lance /journal-index pour régénérer la table des matières.
+    📋 X entrées dans <fichier> (dernier index à Y) — lance /devkit:journal-index pour régénérer la table des matières.
 
-  Exécute immédiatement la logique de /journal-index (relire le fichier,
+  Exécute immédiatement la logique de /devkit:journal-index (relire le fichier,
   reconstruire la table des matières en haut, l'écrire, mettre à jour le
   compteur) avant de terminer ta réponse. Ce message revient à chaque réponse
   tant que le compteur n'est pas à jour.
