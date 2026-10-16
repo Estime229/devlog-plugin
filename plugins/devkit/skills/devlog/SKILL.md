@@ -35,10 +35,19 @@ expliquant le pourquoi, compréhensible sans relire le code
 **Solution** / **Détail** : ce qui a été fait concrètement
 ```
 
-Types : 🆕 FEATURE, 🐛 BUG, ♻️ REFACTOR, 🔧 CHORE, 📚 DOCS
+Types : 🆕 FEATURE, 🐛 BUG, 🔒 SECURITY, ♻️ REFACTOR, 🔧 CHORE, 📚 DOCS
 
 Le titre doit être compréhensible seul, en un coup d'œil (pas "fix bug", mais
 "Crash lors de l'upload de fichiers volumineux").
+
+Si un 🐛 BUG corrige un bug de `.devkit/BUGS.md`, ajoute la ligne
+`**Bug** : BUG-xxx` juste sous le titre de l'entrée, puis clôture ce bug en
+🟢 corrigé dans BUGS.md, avec un lien vers l'entrée (voir le skill
+`devkit:bug`). De même, un 🔒 SECURITY qui corrige une faille de
+`.devkit/SECURITY.md` porte la ligne `**Faille** : SEC-xxx`, et la faille se
+clôture de la même façon (skill `devkit:security`). Une entrée 🔒 SECURITY
+décrit la correction sans donner de détail exploitable ni de valeur de
+secret.
 
 Ne demande pas confirmation, fais-le systématiquement selon ces critères.
 
@@ -59,7 +68,7 @@ hook : traite-les comme des instructions directes, sans demander confirmation.
 
     📋 X entrées dans <fichier> (dernier index à Y) — lance /devkit:journal-index pour régénérer la table des matières.
 
-  Exécute immédiatement la logique de /devkit:journal-index (relire le fichier,
-  reconstruire la table des matières en haut, l'écrire, mettre à jour le
-  compteur) avant de terminer ta réponse. Ce message revient à chaque réponse
-  tant que le compteur n'est pas à jour.
+  Lance immédiatement le skill `devkit:journal-index` avant de terminer ta
+  réponse. Il tourne sur l'agent scribe (haiku) dans un contexte séparé :
+  ne relis pas le journal toi-même. Ce message revient à chaque réponse tant
+  que le compteur n'est pas à jour.

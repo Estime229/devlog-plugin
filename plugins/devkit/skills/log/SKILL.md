@@ -20,7 +20,12 @@ expliquant le pourquoi
 **Solution** / **Détail** : ce qui a été fait concrètement
 ```
 
-Types : 🆕 FEATURE, 🐛 BUG, ♻️ REFACTOR, 🔧 CHORE, 📚 DOCS
+Types : 🆕 FEATURE, 🐛 BUG, 🔒 SECURITY, ♻️ REFACTOR, 🔧 CHORE, 📚 DOCS
+
+Si l'entrée corrige un bug de `.devkit/BUGS.md` ou une faille de
+`.devkit/SECURITY.md`, ajoute sous le titre la ligne `**Bug** : BUG-xxx` ou
+`**Faille** : SEC-xxx`, et clôture-le après l'écriture (skills `devkit:bug`
+et `devkit:security`).
 
 Affiche le résumé proposé à l'utilisateur avant de l'écrire dans le fichier.
 Ajoute l'entrée sous la section de la date du jour (crée-la si elle n'existe pas).

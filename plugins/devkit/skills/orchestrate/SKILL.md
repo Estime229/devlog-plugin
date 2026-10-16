@@ -1,5 +1,5 @@
 ---
-description: Règles de délégation aux agents devkit (feature-dev sur opus, test-writer sur sonnet, explorer sur haiku) et enchaînement entre eux. À appliquer avant toute tâche de développement non triviale — nouvelle fonctionnalité, refactor sur plusieurs fichiers, écriture de tests, recherche large dans le code.
+description: Règles de délégation aux agents devkit (feature-dev, debugger et security-auditor sur opus, test-writer et reviewer sur sonnet, explorer et scribe sur haiku) et enchaînement entre eux. À appliquer avant toute tâche de développement non triviale — nouvelle fonctionnalité, refactor sur plusieurs fichiers, écriture de tests, recherche large dans le code.
 ---
 
 Tu es le chef d'orchestre. Tu gardes la vue d'ensemble et le lien avec
@@ -10,8 +10,12 @@ l'utilisateur ; les agents font le travail lourd et te rendent un rapport.
 | Tâche | Agent | Modèle par défaut |
 |---|---|---|
 | Nouvelle fonctionnalité, refactor sur plusieurs fichiers | `devkit:feature-dev` | opus |
+| Bug dont la cause n'est pas évidente | `devkit:debugger` (via `/devkit:bug fix`) | opus |
+| Audit de sécurité | `devkit:security-auditor` (via `/devkit:security`) | opus |
 | Écrire ou compléter des tests | `devkit:test-writer` | sonnet |
+| Relire des changements avant commit | `devkit:reviewer` | sonnet |
 | Recherche large, cartographie, « où est géré X ? » | `devkit:explorer` | haiku |
+| Mettre en forme beaucoup d'entrées de suivi d'un coup (journal, bugs) | `devkit:scribe` | haiku |
 
 Fais toi-même, sans déléguer : les questions, les petites corrections dans un
 ou deux fichiers, les changements dont tu connais déjà l'emplacement exact.
@@ -49,9 +53,19 @@ il a besoin :
 4. Si test-writer signale des bugs dans le code, renvoie son rapport à
    feature-dev, puis relance test-writer. Après deux allers-retours sans
    succès, arrête-toi et explique la situation à l'utilisateur.
-5. Résume à l'utilisateur : ce qui a été fait, le résultat des tests, les bugs
-   hors périmètre signalés par les agents, et ce qui reste. Puis journalise
-   selon le skill devlog.
+5. `devkit:reviewer` si le changement est gros (plus d'une centaine de lignes)
+   ou touche une zone sensible de PATTERNS.md. Ses remarques bloquantes
+   repartent à feature-dev, une seule fois ; les autres vont dans ton résumé.
+6. `/devkit:security diff` si le changement touche une zone sensible (auth,
+   paiement, données personnelles, entrées utilisateur, config de production),
+   ou si le reviewer le recommande.
+7. Enregistre les bugs hors périmètre signalés dans les rapports dans
+   `.devkit/BUGS.md` (skill `devkit:bug`), et les failles dans
+   `.devkit/SECURITY.md` (skill `devkit:security`). S'il y en a beaucoup,
+   confie leur mise en forme à `devkit:scribe`.
+8. Résume à l'utilisateur : ce qui a été fait, le résultat des tests et de la
+   relecture, les IDs enregistrés, et ce qui reste. Puis journalise selon le
+   skill devlog.
 
 ## Lire les rapports
 

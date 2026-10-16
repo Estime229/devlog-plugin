@@ -125,7 +125,14 @@ généralités.
 ## Après l'écriture
 
 Termine par un résumé de cinq lignes au plus : ce que tu as trouvé de plus
-utile (surtout les pièges et les zones sensibles) et le chemin du fichier. Si
+utile (surtout les pièges et les zones sensibles) et le chemin du fichier.
+
+Si tu as constaté des bugs (du code qui ne fait pas ce qu'il devrait, pas un
+simple piège), ajoute après le résumé une section **Bugs constatés** : pour
+chacun, fichier:ligne, symptôme, gravité proposée. La session principale les
+enregistrera dans `.devkit/BUGS.md`. Les problèmes de sécurité (secrets
+exposés, route sans contrôle d'accès…) vont dans une section **Failles
+constatées**, au même format, pour `.devkit/SECURITY.md`. Si
 le projet a un `CLAUDE.md` qui ne mentionne pas encore PATTERNS.md, ajoute
 au résumé qu'une ligne pourrait y renvoyer, sans modifier CLAUDE.md
 toi-même.

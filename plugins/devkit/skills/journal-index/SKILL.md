@@ -1,6 +1,14 @@
 ---
-description: Génère/actualise une table des matières compacte en haut du journal (CHANGELOG.md ou session-log.md)
+description: Génère/actualise une table des matières compacte en haut du journal (CHANGELOG.md ou session-log.md). Tourne sur l'agent scribe (haiku) dans un contexte séparé.
+context: fork
+agent: devkit:scribe
+background: false
 ---
+
+Tu tournes dans un contexte séparé : tu ne vois pas la conversation de
+l'utilisateur. Ne modifie que le fichier journal et le compteur décrits
+ci-dessous, puis termine par une ligne : fichier mis à jour et nombre
+d'entrées indexées.
 
 Détecte le fichier journal actif du projet, dans cet ordre :
 `.claude/session-log.md` s'il existe ; sinon `.claude/journal/CHANGELOG.md`
