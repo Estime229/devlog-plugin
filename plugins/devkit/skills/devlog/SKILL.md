@@ -33,9 +33,21 @@ Utilise un titre + sous-titre en gras, pas une liste à puce compacte :
 expliquant le pourquoi, compréhensible sans relire le code
 **Cause** (pour un bug uniquement) : la cause racine identifiée
 **Solution** / **Détail** : ce qui a été fait concrètement
+**Décision technique** (si un choix d'implémentation méritait explication) :
+l'option retenue, l'alternative envisagée et pourquoi elle a été écartée
+**Blocage** (si un obstacle a été rencontré) : la difficulté, son impact, et
+comment elle a été résolue (ou son état si elle ne l'est pas encore)
+**Reste à faire** (si des points restent ouverts après ce changement) :
+- [ ] un point en attente par case à cocher
 ```
 
 Types : 🆕 FEATURE, 🐛 BUG, 🔒 SECURITY, ♻️ REFACTOR, 🔧 CHORE, 📚 DOCS
+
+N'ajoute **Décision technique**, **Blocage** et **Reste à faire** que quand ils
+apportent une information réelle pour ce changement précis — ne les inclus pas
+vides ou par automatisme, dans le même esprit que le seuil anti-bruit ci-dessus.
+Écris chaque point de **Reste à faire** comme une case `- [ ]` : `/devkit:todo`
+et `/devkit:rapport` les lisent sous cette forme.
 
 Le titre doit être compréhensible seul, en un coup d'œil (pas "fix bug", mais
 "Crash lors de l'upload de fichiers volumineux").

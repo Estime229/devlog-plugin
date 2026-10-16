@@ -6,15 +6,16 @@ projet :
 - des agents spécialisés, chacun sur le modèle adapté (opus, sonnet, haiku) ;
 - une étude du projet qu'ils lisent avant de travailler ;
 - une liste des bugs et un audit de sécurité tenus à jour ;
-- un journal automatique des features, bugs et refactors ;
+- un journal automatique des features, bugs et refactors, avec rapport
+  journalier et suivi des points en attente ;
 - un blocage des secrets avant chaque commit.
 
-Anciennement `devlog`. Le dépôt garde son nom `41devs/devlog-plugin`.
+Anciennement `devlog`. Le dépôt garde son nom `Estime229/devlog-plugin`.
 
 ## Installation dans un projet
 
 ```bash
-/plugin marketplace add 41devs/devlog-plugin
+/plugin marketplace add Estime229/devlog-plugin
 /plugin install devkit@devtools-41devs
 ```
 
@@ -29,7 +30,7 @@ Ajoute dans `.claude/settings.json` du projet :
 {
   "extraKnownMarketplaces": {
     "devtools-41devs": {
-      "source": { "source": "github", "repo": "41devs/devlog-plugin" }
+      "source": { "source": "github", "repo": "Estime229/devlog-plugin" }
     }
   },
   "enabledPlugins": {
@@ -49,7 +50,8 @@ jour de la marketplace :
 /plugin install devkit@devtools-41devs
 ```
 
-Les commandes s'appellent maintenant `/devkit:log` et `/devkit:journal-index`.
+Les commandes s'appellent maintenant `/devkit:log`, `/devkit:journal-index`,
+`/devkit:rapport` et `/devkit:todo`.
 
 Les fichiers de devkit vivent dans `.devkit/` à la racine du projet, et non
 plus dans `.claude/`. Claude Code protège `.claude/` : chaque écriture y
@@ -99,9 +101,48 @@ exemple « devkit:test-writer → opus » pour un projet critique. Le skill
 | `devlog` | Journalise les changements significatifs | automatique |
 | `/devkit:log` | Force une entrée de journal à partir du `git diff` | manuel |
 | `/devkit:journal-index` | Régénère la table des matières du journal ; agent scribe (haiku), contexte séparé | manuel, ou sur signal du hook |
+| `/devkit:rapport` | Rapport journalier complet (format 41Devs) à partir des entrées du jour : tâches, décisions techniques, blocages, fichiers modifiés, reste à faire — prêt à envoyer | manuel |
+| `/devkit:todo` | Liste les points « Reste à faire » encore ouverts dans tout le journal, groupés par date et reliés à leur entrée ; peut les cocher | manuel |
 
 Une correction journalisée en 🐛 BUG ou 🔒 SECURITY clôture le bug ou la faille
 correspondante, avec un lien vers l'entrée du journal.
+
+## Format d'une entrée de journal
+
+```
+### [ICÔNE] [TYPE] — Titre court et descriptif
+**Fichier(s)** : liste des fichiers concernés
+**Problème** (pour un bug) ou **Contexte** (pour une feature) : le pourquoi
+**Cause** (pour un bug uniquement) : la cause racine identifiée
+**Solution** / **Détail** : ce qui a été fait concrètement
+**Décision technique** (si applicable) : option retenue, alternative écartée
+**Blocage** (si applicable) : difficulté, impact, résolution (ou état actuel)
+**Reste à faire** (si applicable) :
+- [ ] un point en attente par case à cocher
+```
+
+Types : 🆕 FEATURE, 🐛 BUG, 🔒 SECURITY, ♻️ REFACTOR, 🔧 CHORE, 📚 DOCS
+
+Les trois derniers champs sont **conditionnels** : ils n'apparaissent que
+quand ils apportent une information réelle sur ce changement précis, dans le
+même esprit que le seuil anti-bruit du hook de fin de réponse. C'est ce qui
+permet à `/devkit:rapport` et `/devkit:todo` de rester fiables : ils lisent
+ces champs tels quels, sans avoir à deviner ce qui est significatif. Une
+entrée qui clôture un bug ou une faille porte aussi la ligne `**Bug** :
+BUG-xxx` ou `**Faille** : SEC-xxx`.
+
+## Flux d'utilisation typique
+
+1. Une fois par projet : `/devkit:init`, puis `/devkit:study`.
+2. Pendant la journée : `orchestrate` répartit le travail entre les agents ;
+   le skill `devlog` journalise seul les changements significatifs (ou
+   `/devkit:log` pour forcer une entrée précise) ; les bugs et failles
+   repérés vont dans `.devkit/BUGS.md` et `.devkit/SECURITY.md`.
+3. À tout moment : `/devkit:status` pour l'état du projet, `/devkit:todo`
+   pour ce qui reste ouvert avant de passer à autre chose.
+4. Avant un commit : `/devkit:review`, et `/devkit:security diff` si le
+   changement touche une zone sensible.
+5. En fin de journée : `/devkit:rapport` pour générer le rapport à envoyer.
 
 ## Hooks
 
@@ -130,6 +171,7 @@ correspondante, avec un lien vers l'entrée du journal.
 | `.devkit/BUGS.md` | Liste des bugs constatés | Oui |
 | `.devkit/SECURITY.md` | Failles de sécurité et date du dernier audit complet | Oui (sans aucune valeur de secret) |
 | `.devkit/journal/CHANGELOG.md` | Journal | Oui |
+| `.devkit/rapports/` | Rapports journaliers, si tu demandes à les enregistrer | Au choix de l'équipe |
 | `.devkit/routing.md` | Modèles propres au projet | Oui |
 | `.devkit/.gitignore` | Ignore les deux compteurs ci-dessous | Oui |
 | `.devkit/.journal-index-count`, `.devkit/.journal-reminded` | Compteurs internes du hook | Non (ignorés) |

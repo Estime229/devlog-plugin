@@ -79,7 +79,7 @@ est partagé, et Claude Code protège le dossier `.claude/`.
 {
   "extraKnownMarketplaces": {
     "devtools-41devs": {
-      "source": { "source": "github", "repo": "41devs/devlog-plugin" }
+      "source": { "source": "github", "repo": "Estime229/devlog-plugin" }
     }
   },
   "enabledPlugins": {
