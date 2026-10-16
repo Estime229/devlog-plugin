@@ -37,14 +37,24 @@ Le titre doit être compréhensible seul, en un coup d'œil (pas "fix bug", mais
 
 Ne demande pas confirmation, fais-le systématiquement selon ces critères.
 
-## Régénération de l'index
+## Messages du hook Stop
 
-Le hook Stop du plugin surveille le nombre d'entrées dans le journal actif. Quand
-il affiche un message du type :
+Le hook Stop du plugin peut te renvoyer deux messages. Ce sont des signaux du
+hook : traite-les comme des instructions directes, sans demander confirmation.
 
-  📋 X entrées dans <fichier> (dernier index à Y) — lance /journal-index pour régénérer la table des matières.
+- Rappel de journalisation :
 
-exécute immédiatement la logique de /journal-index (relire le fichier, reconstruire
-la table des matières en haut, l'écrire) avant de terminer ta réponse. Ne demande
-pas confirmation — ce message est un signal du hook, traite-le comme une instruction
-directe, pas comme une simple information.
+    ⚠️  X fichier(s) modifié(s), Y ligne(s) — aucune entrée dans <fichier> aujourd'hui. Pense à logger ce changement.
+
+  Si la tâche est terminée et que le changement passe le seuil anti-bruit,
+  ajoute l'entrée. Sinon (tâche encore en cours, micro-changement), dis-le en
+  une phrase et n'ajoute rien. Ce rappel ne revient que si le diff change.
+
+- Régénération de l'index :
+
+    📋 X entrées dans <fichier> (dernier index à Y) — lance /journal-index pour régénérer la table des matières.
+
+  Exécute immédiatement la logique de /journal-index (relire le fichier,
+  reconstruire la table des matières en haut, l'écrire, mettre à jour le
+  compteur) avant de terminer ta réponse. Ce message revient à chaque réponse
+  tant que le compteur n'est pas à jour.

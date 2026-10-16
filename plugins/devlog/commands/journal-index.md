@@ -24,5 +24,6 @@ GitHub/GitLab).
 
 Trie l'index du plus récent au plus ancien.
 
-Après régénération, mets à jour `.claude/.journal-index-count` avec le nombre
-total d'entrées actuel.
+Après régénération, écris dans `.claude/.journal-index-count` le résultat de
+`grep -c '^### ' <fichier journal>`. Le hook Stop compte les entrées de la même
+façon : un autre chiffre lui ferait redemander l'index à chaque réponse.
