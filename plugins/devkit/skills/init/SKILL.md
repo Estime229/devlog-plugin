@@ -1,12 +1,16 @@
 ---
-description: Prépare un projet pour devkit — crée .devkit/ (journal, routing.md, .gitignore), migre l'ancien journal, propose de relier CLAUDE.md et d'activer devkit pour l'équipe, puis de lancer la première étude.
+description: Complète un projet pour devkit — le squelette .devkit/ se crée tout seul à l'ouverture de session ; ici on migre l'ancien journal, on propose de relier CLAUDE.md et d'activer devkit pour l'équipe, puis de lancer la première étude.
 disable-model-invocation: true
 ---
 
-Prépare le projet pour devkit. Si `.devkit/` existe déjà, dis ce qui est en
-place et ne complète que ce qui manque. Ne remplace aucun fichier existant.
+Le dossier `.devkit/` (`.gitignore`, `routing.md`, journal) est créé
+automatiquement à la première session où le plugin est actif. `/devkit:init`
+sert à compléter ce que le hook ne peut pas faire seul.
 
-## 1. Créer .devkit/
+Si `.devkit/` existe déjà, dis ce qui est en place et ne complète que ce
+qui manque. Ne remplace aucun fichier existant.
+
+## 1. Créer .devkit/ s'il manque encore
 
 - `.devkit/.gitignore` :
 

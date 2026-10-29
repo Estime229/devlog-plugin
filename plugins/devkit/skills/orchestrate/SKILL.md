@@ -31,6 +31,18 @@ critique).
 
 ## Avant de déléguer
 
+Si `.devkit/` n'existe pas (hook de session pas encore passé, ou autre
+environnement), crée le squelette **sans demander confirmation**, sans
+écraser de fichier existant :
+
+- `.devkit/.gitignore` avec les lignes `.journal-index-count` et
+  `.journal-reminded`
+- `.devkit/routing.md` (modèle vide, commentaires d'exemple seulement)
+- `.devkit/journal/CHANGELOG.md` **sauf** si `.claude/session-log.md` ou
+  `.claude/journal/CHANGELOG.md` existe déjà (ce journal-là reste actif)
+
+Ne crée ni `BUGS.md` ni `SECURITY.md` ni `PATTERNS.md`.
+
 Vérifie que `.devkit/PATTERNS.md` existe. S'il manque et que la tâche
 est grosse, propose à l'utilisateur de lancer d'abord `/devkit:study` : les
 agents travaillent nettement mieux avec. S'il préfère s'en passer, continue.

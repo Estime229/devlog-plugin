@@ -47,4 +47,5 @@ retard de plus de 30 commits (`/devkit:study`), aucun audit complet
 (`/devkit:security full`).
 
 Un fichier absent s'affiche « pas encore créé », avec la commande qui le crée.
-Si `.devkit/` n'existe pas du tout, dis seulement de lancer `/devkit:init`.
+Si `.devkit/` n'existe pas du tout, dis qu'il se crée à l'ouverture de
+session, et propose `/devkit:init` pour le poser tout de suite.

@@ -9,7 +9,7 @@
     {
       "name": "devkit",
       "source": "./plugins/devkit",
-      "description": "Agents par modèle, étude du projet et journal des features/bugs dans .claude/"
+      "description": "Agents par modèle, étude du projet et journal des features/bugs dans .devkit/"
     }
   ],
   "renames": {

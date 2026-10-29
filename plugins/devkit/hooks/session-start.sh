@@ -1,11 +1,14 @@
 #!/bin/bash
-# Hook SessionStart : résumé de l'état devkit du projet. Le stdout de
-# SessionStart est ajouté au contexte de Claude. Silencieux si le projet
-# n'a pas de dossier .devkit/.
+# Hook SessionStart : crée le squelette .devkit/ s'il manque, puis résume
+# l'état du projet. Le stdout est ajouté au contexte de Claude.
 
 cat >/dev/null
 cd "${CLAUDE_PROJECT_DIR:-.}" 2>/dev/null || exit 0
+
+HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
+BOOTSTRAP_OUT=$(bash "$HOOK_DIR/bootstrap-devkit.sh" "$PWD" 2>/dev/null)
 [ -d .devkit ] || exit 0
+[ -n "$BOOTSTRAP_OUT" ] && printf '%s\n' "$BOOTSTRAP_OUT"
 
 LINES=""
 add() { LINES="${LINES}- $1"$'\n'; }

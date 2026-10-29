@@ -19,8 +19,15 @@ Anciennement `devlog`. Le dépôt garde son nom `Estime229/devlog-plugin`.
 /plugin install devkit@devtools-41devs
 ```
 
-Puis, dans le projet : `/devkit:init`, qui crée `.devkit/` et propose de
-lancer la première étude.
+L'installation pose le plugin sur la machine, pas dans un projet. À la
+**première session** dans un projet où le plugin est actif, le hook de
+démarrage crée tout seul `.devkit/` (`.gitignore`, `routing.md`, journal).
+Il n'écrase rien, et il n'invente pas un second journal si
+`.claude/session-log.md` ou `.claude/journal/CHANGELOG.md` existe déjà.
+
+`/devkit:study` n'est **pas** lancé tout seul (coût, quelques minutes). Le
+hook le propose. `/devkit:init` reste utile pour relier `CLAUDE.md`, montrer
+le bloc d'équipe dans `.claude/settings.json`, et migrer un ancien journal.
 
 ## Activation automatique pour toute l'équipe
 
@@ -92,7 +99,7 @@ exemple « devkit:test-writer → opus » pour un projet critique. Le skill
 | Commande | Rôle | Déclenchement |
 |---|---|---|
 | `orchestrate` | Décide quand déléguer et à quel agent ; enchaîne explorer → feature-dev → test-writer → reviewer → audit si zone sensible | automatique |
-| `/devkit:init` | Crée `.devkit/`, migre l'ancien journal, propose de relier `CLAUDE.md` et de lancer l'étude | manuel |
+| `/devkit:init` | Complète ce que le hook de session a déjà créé : migration du journal, `CLAUDE.md`, activation équipe, première étude | manuel |
 | `/devkit:study [full]` | Étudie le projet et écrit `.devkit/PATTERNS.md` ; opus, contexte séparé ; relancé, il ne lit que les nouveaux commits | manuel ou proposé |
 | `/devkit:bug …` | Liste des bugs : enregistrer, `list`, `fix BUG-xxx` (debugger puis test-writer), `close BUG-xxx` | manuel et automatique |
 | `/devkit:security …` | Audit `diff`, `full` ou d'un chemin ; `list`, `fix SEC-xxx`, `close SEC-xxx` | manuel, ou après une zone sensible |
@@ -133,7 +140,9 @@ BUG-xxx` ou `**Faille** : SEC-xxx`.
 
 ## Flux d'utilisation typique
 
-1. Une fois par projet : `/devkit:init`, puis `/devkit:study`.
+1. Une fois par projet : ouvrir une session (le squelette `.devkit/` se
+   crée tout seul), puis `/devkit:study`. `/devkit:init` si tu veux relier
+   `CLAUDE.md` et l'équipe.
 2. Pendant la journée : `orchestrate` répartit le travail entre les agents ;
    le skill `devlog` journalise seul les changements significatifs (ou
    `/devkit:log` pour forcer une entrée précise) ; les bugs et failles
@@ -146,9 +155,9 @@ BUG-xxx` ou `**Faille** : SEC-xxx`.
 
 ## Hooks
 
-- **Démarrage de session** : ajoute au contexte de Claude un résumé de l'état
-  du projet (étude à jour ou en retard, bugs et failles ouverts, dernière
-  entrée du journal). Silencieux si le projet n'a pas de `.devkit/`.
+- **Démarrage de session** : crée `.devkit/` s'il manque (sans écraser),
+  puis ajoute au contexte un résumé de l'état du projet (étude, bugs,
+  failles, journal).
 - **Anti-secrets** (avant chaque `git commit` lancé par Claude) : bloque le
   commit si les lignes ajoutées contiennent une clé privée ou un token au
   format connu (AWS, GitHub, GitLab, Slack, Stripe, Google, Anthropic, OpenAI,
@@ -162,6 +171,10 @@ BUG-xxx` ou `**Faille** : SEC-xxx`.
   significatif (au moins 15 lignes ou 2 fichiers, nouveaux fichiers compris)
   s'il n'y a aucune entrée du jour, et de régénérer l'index toutes les 5
   entrées.
+
+Le squelette (`.gitignore`, `routing.md`, journal) est posé par le hook
+de session. `PATTERNS.md`, `BUGS.md` et `SECURITY.md` apparaissent à la
+première étude, au premier bug et au premier audit.
 
 ## Fichiers créés dans les projets
 
